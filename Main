@@ -1,0 +1,45 @@
+import math
+def parallel(impedance_one, impedance_two):
+    equivalent_impedance = (impedance_one*impedance_two) / (impedance_one + impedance_two)
+    return equivalent_impedance
+def series(impedance_one, impedance_two):
+    equivalent_impedance = impedance_one + impedance_two
+    return equivalent_impedance
+def get_capacitor_impedance(angular_freq, capacitance):
+    capacitor_impedance = -1j/(angular_freq*capacitance)
+    return capacitor_impedance
+def get_inductor_impedance(angular_freq, inductance):
+    inductor_impedance = 1j*angular_freq*inductance
+    return inductor_impedance
+def convert_from_e_notation(amplitude, angle): #specify angle in degrees
+    if angle>2*math.pi or angle<0:
+        angle_in_radians = angle * math.pi/180
+    else:
+        angle_in_radians = angle
+    complex_number =amplitude*(round(math.cos(angle_in_radians),2)+ 1j*math.sin(angle_in_radians))
+    return complex_number
+def convert_to_e_notation(complex_number): #converts a complex number to e notation
+    real_part = complex_number.real
+    imaginary_part = complex_number.imag
+    amplitude = round(((real_part**2) + (imaginary_part**2))**0.5 , 3)
+    angle = math.atan(imaginary_part/real_part)
+    angle = round(angle*180/math.pi,3)
+    print(f'The amplitude is {amplitude} and the angle is {angle} in degrees.')
+
+
+# freq_in_hz = 10**9
+# angular_freq = freq_in_hz * 2* math.pi
+# angular_freq = 100
+# inductor1_impedance = get_inductor_impedance(angular_freq, (20*10**-3))
+# capacitor1_impedance = get_capacitor_impedance(angular_freq, 1*10**-3)
+
+# total_impedance = parallel(parallel(5, capacitor1_impedance), series(2, inductor1_impedance))
+# right_side = series(2, inductor1_impedance)
+
+# source_current = convert_from_e_notation(4, -20)
+
+# unknown_current = source_current*total_impedance/right_side
+# print((unknown_current))
+# convert_to_e_notation(unknown_current)
+
+
